@@ -1,0 +1,7 @@
+# maven output
+target/
+
+# Eclipse files
+.settings/
+.project
+.classpath

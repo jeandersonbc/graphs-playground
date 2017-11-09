@@ -1,16 +1,32 @@
 package com.example.graphsplayground;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
 
 public class App {
 
-	static void loadGraph(String pathToFile) {
+	public static Graph loadGraph(String pathToFile) throws FileNotFoundException {
 		if (pathToFile == null)
 			throw new IllegalArgumentException();
 
-		File f = new File(pathToFile);
-		if (!f.exists() || !f.isFile())
-			throw new IllegalArgumentException();
+		WeightedGraph graph = new DummyGraph();
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new BufferedReader(new FileReader(pathToFile)));
+			while (sc.hasNext()) {
+				String[] fields = sc.nextLine().split(" ");
+				graph.addVertex(fields[0]);
+				graph.addVertex(fields[1]);
+				graph.addEdge(fields[0], fields[1], Integer.parseInt(fields[2]));
+			}
 
+		} finally {
+			if (sc != null)
+				sc.close();
+		}
+
+		return graph;
 	}
 }

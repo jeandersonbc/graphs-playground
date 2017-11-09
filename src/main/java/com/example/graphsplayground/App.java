@@ -11,7 +11,7 @@ public class App {
 		if (pathToFile == null)
 			throw new IllegalArgumentException();
 
-		WeightedGraph<String> graph = new DummyGraph<>();
+		Graph<String> graph = new DummyGraph<>();
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new BufferedReader(new FileReader(pathToFile)));
@@ -19,7 +19,7 @@ public class App {
 				String[] fields = sc.nextLine().split(" ");
 				graph.addVertex(fields[0]);
 				graph.addVertex(fields[1]);
-				graph.addEdge(fields[0], fields[1], Integer.parseInt(fields[2]));
+				graph.addEdge(new Edge<>(fields[0], fields[1], Integer.parseInt(fields[2])));
 			}
 
 		} finally {

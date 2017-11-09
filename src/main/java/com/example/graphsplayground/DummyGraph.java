@@ -3,11 +3,11 @@ package com.example.graphsplayground;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DummyGraph<T> implements WeightedGraph<T> {
+public class DummyGraph<T> implements Graph<T> {
 
 	private int numEdges;
 	private Set<T> vertices;
-	
+
 	public DummyGraph() {
 		this.vertices = new HashSet<>();
 	}
@@ -28,7 +28,7 @@ public class DummyGraph<T> implements WeightedGraph<T> {
 	}
 
 	@Override
-	public void addEdge(T vertexA, T vertexB, int weight) {
+	public void addEdge(Edge<T> edge) {
 		// TODO Auto-generated method stub
 		this.numEdges++;
 

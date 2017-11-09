@@ -16,7 +16,7 @@ public class AppTest {
 		checkBadInput("", FileNotFoundException.class);
 		checkBadInput("asdasd/asdasd", FileNotFoundException.class);
 
-		Graph graph = null;
+		Graph<String> graph = null;
 		try {
 			graph = App.loadGraph("./data/digraph1.txt");
 		} catch (FileNotFoundException e) {

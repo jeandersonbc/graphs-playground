@@ -1,11 +1,12 @@
 package com.example.graphsplayground;
 
 import java.util.HashSet;
+import java.util.Set;
 
-public class DummyGraph implements WeightedGraph {
+public class DummyGraph<T> implements WeightedGraph<T> {
 
 	private int numEdges;
-	private HashSet<String> vertices;
+	private Set<T> vertices;
 	
 	public DummyGraph() {
 		this.vertices = new HashSet<>();
@@ -22,12 +23,12 @@ public class DummyGraph implements WeightedGraph {
 	}
 
 	@Override
-	public boolean addVertex(String vertex) {
+	public boolean addVertex(T vertex) {
 		return this.vertices.add(vertex);
 	}
 
 	@Override
-	public void addEdge(String vertexA, String vertexB, int weight) {
+	public void addEdge(T vertexA, T vertexB, int weight) {
 		// TODO Auto-generated method stub
 		this.numEdges++;
 

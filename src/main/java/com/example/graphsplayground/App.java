@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class App {
 
-	public static Graph loadGraph(String pathToFile) throws FileNotFoundException {
+	public static Graph<String> loadGraph(String pathToFile) throws FileNotFoundException {
 		if (pathToFile == null)
 			throw new IllegalArgumentException();
 
-		WeightedGraph graph = new DummyGraph();
+		WeightedGraph<String> graph = new DummyGraph<>();
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new BufferedReader(new FileReader(pathToFile)));

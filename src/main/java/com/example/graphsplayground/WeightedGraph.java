@@ -1,6 +1,6 @@
 package com.example.graphsplayground;
 
-public interface WeightedGraph extends Graph {
+public interface WeightedGraph<T> extends Graph<T> {
 
 	/**
 	 * Adds an edge connecting <code>vertexA</code> and <code>vertexB</code>. It is
@@ -14,6 +14,6 @@ public interface WeightedGraph extends Graph {
 	 * @param weight
 	 *            The cost of traversing this edge
 	 */
-	void addEdge(String vertexA, String vertexB, int weight);
+	void addEdge(T vertexA, T vertexB, int weight);
 
 }

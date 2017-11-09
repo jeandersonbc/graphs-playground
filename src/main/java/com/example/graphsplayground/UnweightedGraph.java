@@ -1,6 +1,6 @@
 package com.example.graphsplayground;
 
-public interface UnweightedGraph extends Graph {
+public interface UnweightedGraph<T> extends Graph<T> {
 
 	/**
 	 * Adds an edge connecting <code>vertexA</code> and <code>vertexB</code>. It is
@@ -12,6 +12,6 @@ public interface UnweightedGraph extends Graph {
 	 * @param vertexB
 	 *            Other vertex from this graph
 	 */
-	void addEdge(String vertexA, String vertexB);
+	void addEdge(T vertexA, T vertexB);
 
 }

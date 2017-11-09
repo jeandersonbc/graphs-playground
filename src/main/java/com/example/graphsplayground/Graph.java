@@ -1,6 +1,6 @@
 package com.example.graphsplayground;
 
-public interface Graph {
+public interface Graph<T> {
 
 	/**
 	 * @return The number of vertices on this graph.
@@ -20,6 +20,6 @@ public interface Graph {
 	 *            The name of this vertex
 	 * @return <code>true</code> if this vertex was successfully added.
 	 */
-	boolean addVertex(String vertex);
+	boolean addVertex(T vertex);
 
 }

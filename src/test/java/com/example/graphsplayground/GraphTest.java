@@ -12,6 +12,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.example.graphsplayground.model.AdjacencyList;
+import com.example.graphsplayground.model.Edge;
+import com.example.graphsplayground.model.Graph;
+
 public class GraphTest {
 
 	private Graph<Integer> graph;

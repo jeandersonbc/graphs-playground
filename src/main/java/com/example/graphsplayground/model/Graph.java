@@ -1,4 +1,4 @@
-package com.example.graphsplayground;
+package com.example.graphsplayground.model;
 
 import java.util.List;
 

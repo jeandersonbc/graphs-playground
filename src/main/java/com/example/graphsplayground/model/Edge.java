@@ -1,4 +1,4 @@
-package com.example.graphsplayground;
+package com.example.graphsplayground.model;
 
 /**
  * Represents an edge connecting two vertices of type <code>T</code>. A cost
@@ -52,6 +52,11 @@ public class Edge<T> {
 
 	public int getWeight() {
 		return weight;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%s, %s)", getVertexA(), getVertexB());
 	}
 
 }

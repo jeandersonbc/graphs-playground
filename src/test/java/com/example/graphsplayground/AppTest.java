@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
+import com.example.graphsplayground.model.Graph;
+
 public class AppTest {
 
 	@Test

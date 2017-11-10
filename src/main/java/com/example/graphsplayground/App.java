@@ -11,7 +11,7 @@ public class App {
 		if (pathToFile == null)
 			throw new IllegalArgumentException();
 
-		Graph<String> graph = new DummyGraph<>();
+		Graph<String> graph = new AdjacencyList<>();
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new BufferedReader(new FileReader(pathToFile)));
@@ -21,12 +21,11 @@ public class App {
 				graph.addVertex(fields[1]);
 				graph.addEdge(new Edge<>(fields[0], fields[1], Integer.parseInt(fields[2])));
 			}
-
 		} finally {
 			if (sc != null)
 				sc.close();
 		}
-
 		return graph;
 	}
+
 }

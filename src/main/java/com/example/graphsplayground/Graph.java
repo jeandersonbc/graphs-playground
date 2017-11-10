@@ -1,5 +1,7 @@
 package com.example.graphsplayground;
 
+import java.util.List;
+
 public interface Graph<T> {
 
 	/**
@@ -30,5 +32,14 @@ public interface Graph<T> {
 	 *            An edge connecting two existing vertices on this graph
 	 */
 	void addEdge(Edge<T> edge);
+
+	/**
+	 * Returns the vertices directly reachable from the given vertex.
+	 *
+	 * @param vertex
+	 *            The vertex to check
+	 * @return A list of neighbors from this vertex
+	 */
+	List<Edge<T>> neighborsFrom(T vertex);
 
 }

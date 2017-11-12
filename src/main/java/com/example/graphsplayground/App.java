@@ -3,11 +3,13 @@ package com.example.graphsplayground;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
@@ -42,7 +44,7 @@ public class App {
 	public static <T> Map<T, T> bfs(T source, T destiny, Graph<T> graph) {
 		Queue<T> queue = new LinkedList<>();
 		Set<T> visited = new HashSet<>();
-		Map<T, T> discoveredBy = new HashMap<>();
+		Map<T, T> visistedFrom = new HashMap<>();
 
 		queue.add(source);
 		visited.add(source);
@@ -56,16 +58,70 @@ public class App {
 				if (!visited.contains(neighbor)) {
 					queue.add(neighbor);
 					visited.add(neighbor);
-					discoveredBy.put(neighbor, current);
+					visistedFrom.put(neighbor, current);
 				}
 			}
 		}
-		return discoveredBy;
+		return visistedFrom;
+	}
+
+	public static <T> Map<T, T> djikstra(T source, T destiny, Graph<T> graph) {
+
+		// utility
+		class Pair {
+			T vertex;
+			int cost;
+
+			Pair(T vertex, int cost) {
+				this.vertex = vertex;
+				this.cost = cost;
+			}
+		}
+
+		// init
+		Map<T, T> visitedFrom = new HashMap<>();
+		Map<T, Integer> distances = new HashMap<>();
+		Set<T> visited = new HashSet<>();
+		Queue<Pair> queue = new PriorityQueue<>(new Comparator<Pair>() {
+
+			@Override
+			public int compare(Pair o1, Pair o2) {
+				return o1.cost - o2.cost;
+			}
+		});
+
+		distances.put(source, 0);
+		queue.add(new Pair(source, 0));
+
+		while (!queue.isEmpty()) {
+			Pair current = queue.remove();
+			if (!visited.contains(current.vertex)) {
+				visited.add(current.vertex);
+				if (current.vertex.equals(destiny)) {
+					break;
+				}
+				for (Edge<T> neighbor : graph.neighborsFrom(current.vertex)) {
+					int currentDistance = distances.get(current.vertex) + neighbor.getWeight();
+					queue.add(new Pair(neighbor.getVertexB(), currentDistance));
+
+					// Updates only when shortest path is discovered
+					if (!distances.containsKey(neighbor.getVertexB())
+							|| distances.get(neighbor.getVertexB()) > currentDistance) {
+						distances.put(neighbor.getVertexB(), currentDistance);
+						visitedFrom.put(neighbor.getVertexB(), current.vertex);
+					}
+				}
+			}
+		}
+		return visitedFrom;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Graph<String> graph = App.loadGraph("data/digraph1.txt");
-		System.out.println(traverseFrom("A", "D", bfs("A", "D", graph)));
+		// System.out.println(traverseFrom("A", "D", bfs("A", "D",
+		// App.loadGraph("data/digraph1.txt"))));
+
+		System.out.println(traverseFrom("A", "D", djikstra("A", "D", App.loadGraph("data/weighted1.txt"))));
+
 	}
 
 	private static <T> List<T> traverseFrom(T source, T destiny, Map<T, T> path) {

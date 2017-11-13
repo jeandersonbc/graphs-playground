@@ -68,7 +68,7 @@ public class App {
 	public static <T> Map<T, T> djikstra(T source, T destiny, Graph<T> graph) {
 
 		// utility
-		class Pair {
+		class Pair implements Comparator<Pair> {
 			T vertex;
 			int cost;
 
@@ -76,39 +76,39 @@ public class App {
 				this.vertex = vertex;
 				this.cost = cost;
 			}
+
+			@Override
+			public int compare(Pair o1, Pair o2) {
+				return o1.cost - o2.cost;
+			}
 		}
 
 		// init
 		Map<T, T> visitedFrom = new HashMap<>();
 		Map<T, Integer> distances = new HashMap<>();
 		Set<T> visited = new HashSet<>();
-		Queue<Pair> queue = new PriorityQueue<>(new Comparator<Pair>() {
-
-			@Override
-			public int compare(Pair o1, Pair o2) {
-				return o1.cost - o2.cost;
-			}
-		});
+		Queue<Pair> queue = new PriorityQueue<>();
 
 		distances.put(source, 0);
 		queue.add(new Pair(source, 0));
 
 		while (!queue.isEmpty()) {
-			Pair current = queue.remove();
-			if (!visited.contains(current.vertex)) {
-				visited.add(current.vertex);
-				if (current.vertex.equals(destiny)) {
+			Pair currentPair = queue.remove();
+			T current = currentPair.vertex;
+			if (!visited.contains(current)) {
+				visited.add(current);
+				if (current.equals(destiny)) {
 					break;
 				}
-				for (Edge<T> neighbor : graph.neighborsFrom(current.vertex)) {
-					int currentDistance = distances.get(current.vertex) + neighbor.getWeight();
-					queue.add(new Pair(neighbor.getVertexB(), currentDistance));
+				for (Edge<T> edge : graph.neighborsFrom(current)) {
+					int newDistance = distances.get(current) + edge.getWeight();
+					T neighbor = edge.getVertexB();
+					queue.add(new Pair(neighbor, newDistance));
 
-					// Updates only when shortest path is discovered
-					if (!distances.containsKey(neighbor.getVertexB())
-							|| distances.get(neighbor.getVertexB()) > currentDistance) {
-						distances.put(neighbor.getVertexB(), currentDistance);
-						visitedFrom.put(neighbor.getVertexB(), current.vertex);
+					// Updates only when a shorter path is discovered
+					if (!distances.containsKey(neighbor) || distances.get(neighbor) > newDistance) {
+						distances.put(neighbor, newDistance);
+						visitedFrom.put(neighbor, current);
 					}
 				}
 			}

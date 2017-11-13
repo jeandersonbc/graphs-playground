@@ -3,7 +3,6 @@ package com.example.graphsplayground;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -68,7 +67,7 @@ public class App {
 	public static <T> Map<T, T> djikstra(T source, T destiny, Graph<T> graph) {
 
 		// utility
-		class Pair implements Comparator<Pair> {
+		class Pair implements Comparable<Pair> {
 			T vertex;
 			int cost;
 
@@ -78,8 +77,8 @@ public class App {
 			}
 
 			@Override
-			public int compare(Pair o1, Pair o2) {
-				return o1.cost - o2.cost;
+			public int compareTo(Pair other) {
+				return this.cost - other.cost;
 			}
 		}
 
